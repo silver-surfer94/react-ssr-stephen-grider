@@ -6969,21 +6969,36 @@ module.exports = memoizeStringOnly;
 "use strict";
 
 
-var express = __webpack_require__(52);
-var React = __webpack_require__(18);
-var renderToString = __webpack_require__(108).renderToString;
-var Home = __webpack_require__(117).default;
+var _express = __webpack_require__(52);
 
-var app = express();
+var _express2 = _interopRequireDefault(_express);
 
-app.get('/', function (req, res) {
-  var content = renderToString(React.createElement(Home, null));
+var _react = __webpack_require__(18);
 
-  res.send(content);
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(108);
+
+var _Home = __webpack_require__(117);
+
+var _Home2 = _interopRequireDefault(_Home);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var app = (0, _express2.default)();
+
+app.use(_express2.default.static("public")); // tell express that this file is public
+
+app.get("/", function (req, res) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));
+
+  var html = "\n    <html>\n      <head></head>\n      <body>\n        <div id=\"root\">" + content + "</div>\n        <script src=\"bundle.js\"></script>\n      </body>\n    </html>\n  ";
+
+  res.send(html);
 });
 
 app.listen(3000, function () {
-  console.log('Listening on port 3000');
+  console.log("Listening on port 3000");
 });
 
 /***/ }),
@@ -22081,9 +22096,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Home = function Home() {
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    'Im on the home component'
+    _react2.default.createElement(
+      "div",
+      null,
+      "I am the home componentssss"
+    ),
+    _react2.default.createElement(
+      "button",
+      { onClick: function onClick() {
+          return console.log("Hi There!");
+        } },
+      "Press me!"
+    )
   );
 };
 
